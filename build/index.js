@@ -8,6 +8,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+//NIvell 1
+//Exercici 1
 // Fetch and display the joke when the page loads
 function fetchJoke() {
     return __awaiter(this, void 0, void 0, function* () {
@@ -27,7 +29,7 @@ function fetchJoke() {
             }
             const jokeData = yield response.json();
             const joke = jokeData.joke;
-            jokeElement.textContent = joke;
+            jokeElement.textContent = `"${joke}"`; //joke;
         }
         catch (error) {
             console.error('Failed to fetch joke:', error);

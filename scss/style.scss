@@ -1,0 +1,59 @@
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+$primary: #01cedd;
+$background-image-url: '../img/background.jpg';
+
+body {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  height: 100vh; /* Ensures the body takes full height of the viewport */
+  background-color: #ffffff; /* Fallback background color */
+  
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url(#{$background-image-url});
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.6; /* Adjust the opacity to set the desired transparency (0.0 to 1.0) */
+    z-index: -1; /* Ensures the background stays behind the content */
+  }
+}
+
+.custom-weather-paragraph {
+  font-weight: bold;
+}
+
+//Joke card
+.card { 
+  background-color: rgba(255, 255, 255); 
+  border-radius: 10px;
+  border: 0px solid #ccc;
+  padding: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+  box-shadow: 0px 6px 6px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card h3 {
+  font-weight: bold;
+  //margin-top: 22px;
+}
+
+.card .btn {
+  color: white;
+  background-color: $primary; // #8ecee7;
+  border-color: $primary;//#8ecee7;
+}
+
+.custom-card-row {
+  margin-top: 80px;
+}
+
+

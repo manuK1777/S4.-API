@@ -1,3 +1,5 @@
+//NIvell 1
+//Exercici 1
 // Fetch and display the joke when the page loads
 async function fetchJoke(): Promise<void> {
   const jokeElement = document.getElementById('joke');
@@ -19,7 +21,7 @@ async function fetchJoke(): Promise<void> {
 
     const jokeData = await response.json();
     const joke = jokeData.joke;
-    jokeElement.textContent = joke;
+    jokeElement.textContent = `"${joke}"`; //joke;
   } catch (error) {
     console.error('Failed to fetch joke:', error);
     jokeElement.textContent = 'Failed to load joke.';

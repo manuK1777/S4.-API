@@ -5,13 +5,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Manuel Krapovickas">
+    <link rel="stylesheet" href="build/style.css">
     <title>S4. API</title>
 </head>
 
 <body>
 
-    <p id='joke'>Loading...</p>
-    <button type="button" onclick="nextAcudit()">Next Joke</button>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <p class="mt-4 ms-3 custom-weather-paragraph">Avui parcialment ennuvolat</p>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center custom-card-row">
+        <div class="card" style="width: 38rem">
+            <div class="col-8 justify-content-center ms-auto me-auto">
+                <h3 class="text-center mt-4">Preparat per riure? <span><img class="mb-1" src="./img/rotated_smile_45.png" alt="A laughing emoticon face" style="width: 45px;"></span></h1>
+                   
+            </div>
+            <div class="col-8 justify-content-center ms-auto me-auto">
+                <p id='joke' class="text-center mt-5">"Loading..."</p>
+            </div>
+            <div class="col-6 justify-content-center ms-auto me-auto text-center">
+                <!-- <button type="btn-primary" onclick="nextAcudit()">Seguent acudit</button> -->
+                <button type="button" class="btn btn-primary mt-5" onclick="nextAcudit()">Seguent acudit</button>
+
+            </div>
+        </div>
+    </div>
+    <div class="container">
+
+
+    </div>
+
+
     <script src="./build/index.js"></script>
 </body>
 
