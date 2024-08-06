@@ -43,13 +43,12 @@ body {
 
 .card h3 {
   font-weight: bold;
-  //margin-top: 22px;
 }
 
-.card .btn {
+.custom-primary-btn {
   color: white;
-  background-color: $primary; // #8ecee7;
-  border-color: $primary;//#8ecee7;
+  background-color: $primary;
+  border-color: $primary;
 }
 
 .custom-card-row {

@@ -11884,7 +11884,7 @@ body::before {
   font-weight: bold;
 }
 
-.card .btn {
+.custom-primary-btn {
   color: white;
   background-color: #01cedd;
   border-color: #01cedd;
