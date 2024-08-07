@@ -48,6 +48,7 @@ function fetchJoke() {
 // Fetch and display the joke when the page loads
 document.addEventListener('DOMContentLoaded', fetchJoke);
 console.log(reportAcudits);
+// Function to get next joke (button)
 function nextAcudit() {
     fetchJoke();
     console.log(reportAcudits);
@@ -56,14 +57,57 @@ function nextAcudit() {
 document.addEventListener('DOMContentLoaded', () => {
     const buttons = document.querySelectorAll('.btn-group .btn');
     buttons.forEach(button => {
-        button.addEventListener('click', (event) => {
+        button.addEventListener('click', event => {
             const target = event.target;
             const buttonValue = target.getAttribute('data-value');
             jokeScore = buttonValue;
-            reportAcudits[indexArray].score = parseInt(jokeScore);
+            reportAcudits[indexArray].score = jokeScore;
             //reset variable
             jokeScore = 0;
             console.log(reportAcudits);
         });
     });
 });
+// Function to get weather data
+const weatherElement = document.getElementById('weather');
+function getWeather(latitude, longitude, language) {
+    const apiKey = '9f080c853cf361a8faf3db39ba5f538c';
+    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&lang=${language}`;
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+        const temp = (data.main.temp - 273.15).toFixed(1); // Convert from Kelvin to Celsius
+        const weatherDescription = data.weather[0].description;
+        const capitWeathDescr = // Capitalize the first letter of the weather description
+         weatherDescription.charAt(0).toUpperCase() +
+            weatherDescription.slice(1);
+        if (weatherElement) {
+            weatherElement.innerText = `${temp} °C - ${capitWeathDescr}`;
+        }
+    })
+        .catch(error => console.error('Error fetching weather data:', error));
+}
+//Function to get user's location
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(position => {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            const language = navigator.language; // Get the browser's language
+            getWeather(latitude, longitude, language);
+        }, error => {
+            console.error('Error getting geolocation:', error);
+            if (weatherElement) {
+                weatherElement.innerText = 'Unable to retrieve your location.';
+            }
+        });
+    }
+    else {
+        if (weatherElement) {
+            weatherElement.innerText =
+                'Geolocation is not supported by this browser.';
+        }
+    }
+}
+// Get user's location on page load
+window.onload = getLocation;
