@@ -11,6 +11,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 const reportAcudits = [];
 let indexArray = 0;
 let jokeScore = 0;
+let jokeToggler = true;
+let jokeSource = '';
 // Fetch and display the joke when the page loads
 function fetchJoke() {
     return __awaiter(this, void 0, void 0, function* () {
@@ -19,8 +21,14 @@ function fetchJoke() {
             console.error('No joke element found');
             return;
         }
+        if (jokeToggler) {
+            jokeSource = 'https://icanhazdadjoke.com/';
+        }
+        else {
+            jokeSource = 'https://api.chucknorris.io/jokes/random';
+        }
         try {
-            const response = yield fetch('https://icanhazdadjoke.com/', {
+            const response = yield fetch(jokeSource, {
                 headers: {
                     Accept: 'application/json',
                 },
@@ -29,7 +37,7 @@ function fetchJoke() {
                 throw new Error('Network response was not ok');
             }
             const jokeData = yield response.json();
-            const joke = jokeData.joke;
+            const joke = jokeToggler ? jokeData.joke : jokeData.value;
             const currentTime = new Date().toISOString();
             reportAcudits.push({
                 joke: joke,
@@ -43,11 +51,13 @@ function fetchJoke() {
             console.error('Failed to fetch joke:', error);
             jokeElement.textContent = 'Failed to load joke.';
         }
+        jokeToggler = !jokeToggler;
     });
 }
 // Fetch and display the joke when the page loads
 document.addEventListener('DOMContentLoaded', fetchJoke);
 console.log(reportAcudits);
+console.log(jokeSource);
 // Function to get next joke (button)
 function nextAcudit() {
     fetchJoke();
@@ -71,8 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // Function to get weather data
 const weatherElement = document.getElementById('weather');
 function getWeather(latitude, longitude, language) {
-    const apiKey = '9f080c853cf361a8faf3db39ba5f538c';
-    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&lang=${language}`;
+    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=9f080c853cf361a8faf3db39ba5f538c&lang=${language}`;
     fetch(url)
         .then(response => response.json())
         .then(data => {

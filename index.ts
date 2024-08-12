@@ -1,6 +1,8 @@
 const reportAcudits: {joke: string; score: number; currentTime: string}[] = [];
 let indexArray = 0;
 let jokeScore = 0;
+let jokeToggler = true;
+let jokeSource = '';
 
 // Fetch and display the joke when the page loads
 async function fetchJoke(): Promise<void> {
@@ -10,8 +12,14 @@ async function fetchJoke(): Promise<void> {
     return;
   }
 
+  if (jokeToggler) {
+    jokeSource = 'https://icanhazdadjoke.com/';
+  } else {
+    jokeSource = 'https://api.chucknorris.io/jokes/random';
+  }
+
   try {
-    const response = await fetch('https://icanhazdadjoke.com/', {
+    const response = await fetch(jokeSource, {
       headers: {
         Accept: 'application/json',
       },
@@ -22,7 +30,7 @@ async function fetchJoke(): Promise<void> {
     }
 
     const jokeData = await response.json();
-    const joke = jokeData.joke;
+    const joke = jokeToggler ? jokeData.joke : jokeData.value;
     const currentTime = new Date().toISOString();
 
     reportAcudits.push({
@@ -37,12 +45,15 @@ async function fetchJoke(): Promise<void> {
     console.error('Failed to fetch joke:', error);
     jokeElement.textContent = 'Failed to load joke.';
   }
+
+  jokeToggler = !jokeToggler;
 }
 
 // Fetch and display the joke when the page loads
 document.addEventListener('DOMContentLoaded', fetchJoke);
 
 console.log(reportAcudits);
+console.log(jokeSource);
 
 // Function to get next joke (button)
 function nextAcudit() {
@@ -70,8 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // Function to get weather data
 const weatherElement = document.getElementById('weather');
 function getWeather(latitude: number, longitude: number, language: string) {
-  const apiKey = '9f080c853cf361a8faf3db39ba5f538c';
-  const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&lang=${language}`;
+  const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=9f080c853cf361a8faf3db39ba5f538c&lang=${language}`;
 
   fetch(url)
     .then(response => response.json())
