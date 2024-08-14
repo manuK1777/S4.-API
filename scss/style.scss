@@ -1,15 +1,18 @@
 @import "../node_modules/bootstrap/scss/bootstrap";
 
 $primary: #01cedd;
-$background-image-url: '../img/background.jpg';
+
+:root {
+  --background-image-url: url('../img/blobs/1_blob.svg');
+}
+
 
 body {
   position: relative;
   margin: 0;
   padding: 0;
-  height: 100vh; /* Ensures the body takes full height of the viewport */
-  background-color: #ffffff; /* Fallback background color */
-  
+  height: 100vh;
+
   &::before {
     content: "";
     position: absolute;
@@ -17,12 +20,11 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: url(#{$background-image-url});
-    background-size: cover;
+    background-image: var(--background-image-url);
+    background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    opacity: 0.6; /* Adjust the opacity to set the desired transparency (0.0 to 1.0) */
-    z-index: -1; /* Ensures the background stays behind the content */
+    z-index: -1;
   }
 }
 
@@ -30,29 +32,188 @@ body {
   font-weight: bold;
 }
 
-//Joke card
-.card { 
-  background-color: rgba(255, 255, 255); 
-  border-radius: 10px;
-  border: 0px solid #ccc;
-  padding: 20px;
-  margin-bottom: 20px;
-  text-align: center;
-  box-shadow: 0px 6px 6px 4px rgba(0, 0, 0, 0.1);
-}
 
 .card h3 {
   font-weight: bold;
 }
 
+
 .custom-primary-btn {
-  color: white;
-  background-color: $primary;
-  border-color: $primary;
+  font-size: 0.9rem;
+  color: black;
+  background-color: transparent;
+  box-shadow: inset 0 0 2px rgb(25, 27, 27, 0.9), inset 0 0 2px rgb(36, 33, 33);
+  border-radius: 50px;
+  border: rgb(36, 33, 33) 1px solid;
+}
+
+.custom-primary-btn:hover {
+  background-color: transparent;
+  color: black !important;
+  transform: scale(1.2);
+}
+
+.custom-btn-emoticon {
+  border: none;
+  border-width: 0;
+  background-color: transparent;
+}
+
+.emoji-container {
+  padding: 20px;
+  width: 35px;
+  height: 35px;
+  background-image: url('../img/emo-back-1.svg');
+  background-size: cover;
+  background-position: 1.9px 2px;
+  position: relative;
+  overflow: hidden;
+}
+
+.emoji {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 35px;
+  height: auto;
+}
+
+.emoji:hover {
+  transform: scale(1.1) translate(-50%, -50%);
+} 
+
+.seguent-acudit-btn-span {
+  background-color: #edd601;
+  width: 158px;
+  border-radius: 50px;
+  padding-bottom: 13px;
+  padding-right: 2px;
+  position: relative;
 }
 
 .custom-card-row {
   margin-top: 80px;
 }
 
+//Joke card
+.card {
+  color: #ffffff;
+  background-color: transparent;
+  border: 0px;
+  text-align: center;
+  width: 28rem;
+}
 
+
+@media screen and (max-width: 576px) {
+  body {
+
+    &::before {
+      content: "";
+      background-size: 180%;
+    }
+  }
+
+  .card {
+    width: 10rem;
+  }
+
+  h3 {
+    font-size: 0.8rem;
+    margin-top: 0px !important;
+  }
+
+  .custom-div-joke {
+    margin-top: -10px;
+    padding-top: 0px;
+  }
+
+  .custom-btn-emoticon {
+    margin-right: 0px !important;
+  }
+
+  .emoji-container {
+    padding: 15px !important;
+  }
+
+  .emoji {
+    width: 26px !important;
+  }
+
+  .seguent-acudit-btn-span {
+    width: 158px;
+    padding-bottom: 13px;
+    padding-right: 2px;
+    position: relative;
+  }
+
+  .custom-primary-btn {
+    font-size: 0.6rem;
+  }
+
+  #nextJokeBtn {
+    font-size: 0.6rem;
+  }
+
+  #joke {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-size: 0.6rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .card {
+    width: 18rem;
+  }
+
+  h3 {
+    font-size: 0.9rem;
+    margin-top: 0px !important;
+  }
+
+  .custom-div-joke {
+    margin-top: -10px;
+    padding-top: 0px;
+  }
+
+  .custom-btn-emoticon {
+    margin-right: 0px !important;
+  }
+
+  .emoji-container {
+    padding: 15px !important;
+  }
+
+  .emoji {
+    width: 26px !important;
+  }
+
+  .seguent-acudit-btn-span {
+    width: 158px;
+    padding-bottom: 13px;
+    padding-right: 2px;
+    position: relative;
+  }
+
+  .custom-primary-btn {
+    font-size: 0.8rem;
+  }
+
+  #nextJokeBtn {
+    font-size: 0.8rem;
+  }
+
+  #joke {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-size: 0.8rem;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  h3 {
+    margin-top: 1.5rem;
+  }
+}

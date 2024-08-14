@@ -55,28 +55,20 @@ document.addEventListener('DOMContentLoaded', fetchJoke);
 console.log(reportAcudits);
 console.log(jokeSource);
 
-// Function to get next joke (button)
+//next joke (button)
 function nextAcudit() {
   fetchJoke();
   console.log(reportAcudits);
 }
 
 //Get the joke score from the user
-document.addEventListener('DOMContentLoaded', () => {
-  const buttons = document.querySelectorAll('.btn-group .btn');
-
-  buttons.forEach(button => {
-    button.addEventListener('click', event => {
-      const target = event.target as HTMLButtonElement;
-      const buttonValue = target.getAttribute('data-value');
-      jokeScore = buttonValue as unknown as number;
-      reportAcudits[indexArray].score = jokeScore;
-      //reset variable
-      jokeScore = 0;
-      console.log(reportAcudits);
-    });
-  });
-});
+function sendValue(value: string) {
+  jokeScore = parseInt(value);
+  reportAcudits[indexArray].score = jokeScore;
+  //reset variable
+  jokeScore = 0;
+  console.log(reportAcudits);
+}
 
 // Function to get weather data
 const weatherElement = document.getElementById('weather');
@@ -87,19 +79,17 @@ function getWeather(latitude: number, longitude: number, language: string) {
     .then(response => response.json())
     .then(data => {
       const temp = (data.main.temp - 273.15).toFixed(1); // Convert from Kelvin to Celsius
-      const weatherDescription = data.weather[0].description;
-      const capitWeathDescr = // Capitalize the first letter of the weather description
-        weatherDescription.charAt(0).toUpperCase() +
-        weatherDescription.slice(1);
+      const iconCode = data.weather[0].icon;
+      const weatherIcon = `http://openweathermap.org/img/wn/${iconCode}.png`;
 
       if (weatherElement) {
-        weatherElement.innerText = `${temp} °C - ${capitWeathDescr}`;
+        weatherElement.innerHTML = `<img src="${weatherIcon}" alt="Current weather icon"> | ${temp} °C`;
       }
     })
     .catch(error => console.error('Error fetching weather data:', error));
 }
 
-//Function to get user's location
+//get user's location
 function getLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
@@ -128,3 +118,23 @@ function getLocation() {
 
 // Get user's location on page load
 window.onload = getLocation;
+
+function getRandomNumber() {
+  return Math.floor(Math.random() * 10) + 1;
+}
+
+const nextJokeBtn = document.getElementById('nextJokeBtn');
+
+if (nextJokeBtn) {
+  nextJokeBtn.addEventListener('click', () => {
+    // Generate a new image URL based on a random number
+    const randomNumber = getRandomNumber();
+    const newImageUrl = `../img/blobs/${randomNumber}_blob.svg`;
+
+    // Access the root element
+    const root = document.documentElement;
+
+    // Update the CSS custom property
+    root.style.setProperty('--background-image-url', `url(${newImageUrl})`);
+  });
+}
